@@ -2,6 +2,7 @@ package com.devblogs.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,5 +55,9 @@ public class Provider {
  
     public void setItems(Set<Item> items) {
         this.items = items;
+    }
+    
+    public String toString() {
+    	return "[id=" + this.id + ", name=" + this.name + "]";
     }
 }

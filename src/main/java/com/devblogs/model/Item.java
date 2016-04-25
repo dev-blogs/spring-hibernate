@@ -70,4 +70,8 @@ public class Item {
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
     }
+    
+    public String toString() {
+    	return "[id=" + this.id + ", name=" + this.name + "]";
+    }
 }

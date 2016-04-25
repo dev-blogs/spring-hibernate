@@ -2,6 +2,7 @@ package com.devblogs.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,4 +50,8 @@ public class Warehouse {
 	public void setItems(Set<Item> items) {
 		this.items = items;
 	}
+	
+	public String toString() {
+    	return "[id=" + this.id + ", address=" + this.address + "]";
+    }
 }

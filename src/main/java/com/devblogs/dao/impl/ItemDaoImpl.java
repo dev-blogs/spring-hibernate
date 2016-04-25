@@ -29,7 +29,7 @@ public class ItemDaoImpl implements ItemDao {
 
 	@Transactional(readOnly = true)
 	public Collection<Item> getAllItems() throws SQLException, Exception {		
-		return sessionFactory.getCurrentSession().createQuery("from Item c").list();
+		return sessionFactory.getCurrentSession().createQuery("from Item i").list();
 	}
 
 	public void deleteItem(Item item, Session session) throws SQLException, Exception {
