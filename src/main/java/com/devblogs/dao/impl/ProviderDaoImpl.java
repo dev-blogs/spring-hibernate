@@ -2,27 +2,42 @@ package com.devblogs.dao.impl;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import org.hibernate.Session;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.devblogs.dao.ProviderDao;
 import com.devblogs.model.Provider;
 
+@Component
 public class ProviderDaoImpl implements ProviderDao {
+	@Autowired
+	private SessionFactory sessionFactory;
 
-	public void addProvider(Provider provider, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void addProvider(Provider provider) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().save(provider);
 	}
 
-	public void updateProvider(Provider provider, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void updateProvider(Provider provider) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().update(provider);
 	}
 
-	public Provider getProviderById(Long id, Session session) throws SQLException, Exception {
-		return null;
+	@Transactional(readOnly = true)
+	public Provider getProviderById(Long id) throws SQLException, Exception {
+		return (Provider) sessionFactory.getCurrentSession().createQuery("from Provider where id = " + id).uniqueResult();
 	}
 
-	public Collection<Provider> getAllProviders(Session session) throws SQLException, Exception {
-		return null;
+	@Transactional(readOnly = true)
+	public Collection<Provider> getAllProviders() throws SQLException, Exception {
+		return sessionFactory.getCurrentSession().createQuery("from Provider p").list();
 	}
 
-	public void deleteProvider(Provider provider, Session session) throws SQLException, Exception {
-		
+	@Transactional(readOnly = false)
+	public void deleteProvider(Provider provider) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().delete(provider);
 	}
 }

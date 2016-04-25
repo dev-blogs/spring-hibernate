@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
- 
+
 @Entity
 @Table(name = "items")
 public class Item {
@@ -71,6 +71,7 @@ public class Item {
         this.warehouse = warehouse;
     }
     
+    @Override
     public String toString() {
     	return "[id=" + this.id + ", name=" + this.name + "]";
     }

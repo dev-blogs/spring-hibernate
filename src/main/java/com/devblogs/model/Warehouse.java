@@ -51,6 +51,7 @@ public class Warehouse {
 		this.items = items;
 	}
 	
+	@Override
 	public String toString() {
     	return "[id=" + this.id + ", address=" + this.address + "]";
     }

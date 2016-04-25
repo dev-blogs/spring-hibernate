@@ -2,26 +2,40 @@ package com.devblogs.dao.impl;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import com.devblogs.dao.WarehouseDao;
 import com.devblogs.model.Warehouse;
 
+@Component
 public class WarehouseDaoImpl implements WarehouseDao {
+	@Autowired
+	private SessionFactory sessionFactory;
 
-	public void addWarehouse(Warehouse warehouse, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void addWarehouse(Warehouse warehouse) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().save(warehouse);
 	}
 
-	public void updateWarehouse(Warehouse warehouse, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void updateWarehouse(Warehouse warehouse) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().update(warehouse);
 	}
 
-	public Warehouse getWarehouseById(Long id, Session session) throws SQLException, Exception {
-		return null;
+	@Transactional(readOnly = true)
+	public Warehouse getWarehouseById(Long id) throws SQLException, Exception {
+		return (Warehouse) sessionFactory.getCurrentSession().createQuery("from Warehouse where id = " + id).uniqueResult();
 	}
 
-	public Collection<Warehouse> getAllWarehouses(Session session) throws SQLException, Exception {
-		return null;
+	@Transactional(readOnly = true)
+	public Collection<Warehouse> getAllWarehouses() throws SQLException, Exception {
+		return sessionFactory.getCurrentSession().createQuery("from Warehouse w").list();
 	}
 
-	public void deleteWarehouse(Warehouse warehouse, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void deleteWarehouse(Warehouse warehouse) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().delete(warehouse);
 	}
 }

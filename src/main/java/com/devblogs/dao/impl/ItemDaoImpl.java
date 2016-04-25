@@ -2,8 +2,6 @@ package com.devblogs.dao.impl;
 
 import java.sql.SQLException;
 import java.util.Collection;
-
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,14 +15,19 @@ public class ItemDaoImpl implements ItemDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void addItem(Item item, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void addItem(Item item) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().save(item);
 	}
 
-	public void updateItem(Item item, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void updateItem(Item item) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().update(item);
 	}
 
-	public Item getItemById(Long id, Session session) throws SQLException, Exception {
-		return null;
+	@Transactional(readOnly = true)
+	public Item getItemById(Long id) throws SQLException, Exception {
+		return (Item) sessionFactory.getCurrentSession().createQuery("from Item where id = " + id).uniqueResult();
 	}
 
 	@Transactional(readOnly = true)
@@ -32,6 +35,8 @@ public class ItemDaoImpl implements ItemDao {
 		return sessionFactory.getCurrentSession().createQuery("from Item i").list();
 	}
 
-	public void deleteItem(Item item, Session session) throws SQLException, Exception {
+	@Transactional(readOnly = false)
+	public void deleteItem(Item item) throws SQLException, Exception {
+		sessionFactory.getCurrentSession().delete(item);
 	}
 }
