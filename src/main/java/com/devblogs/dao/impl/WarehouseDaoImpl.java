@@ -15,8 +15,9 @@ public class WarehouseDaoImpl implements WarehouseDao {
 	private SessionFactory sessionFactory;
 
 	@Transactional(readOnly = false)
-	public void addWarehouse(Warehouse warehouse) throws SQLException, Exception {
+	public Warehouse addWarehouse(Warehouse warehouse) throws SQLException, Exception {
 		sessionFactory.getCurrentSession().save(warehouse);
+		return warehouse;
 	}
 
 	@Transactional(readOnly = false)

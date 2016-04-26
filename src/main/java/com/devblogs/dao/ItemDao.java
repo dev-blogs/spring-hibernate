@@ -5,7 +5,7 @@ import java.util.Collection;
 import com.devblogs.model.Item;
 
 public interface ItemDao {
-	public void addItem(Item item) throws SQLException, Exception;
+	public Item addItem(Item item) throws SQLException, Exception;
     public void updateItem(Item item) throws SQLException, Exception;
     public Item getItemById(Long id) throws SQLException, Exception;
     public Collection<Item> getAllItems() throws SQLException, Exception;

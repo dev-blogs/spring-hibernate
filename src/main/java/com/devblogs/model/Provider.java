@@ -57,6 +57,15 @@ public class Provider {
     }
     
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Provider that = (Provider) obj;
+        if (!name.equals(that.name)) return false;
+        return true;
+    }
+    
+    @Override
     public String toString() {
     	return "[id=" + this.id + ", name=" + this.name + "]";
     }

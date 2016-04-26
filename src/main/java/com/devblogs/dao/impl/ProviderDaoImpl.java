@@ -15,8 +15,9 @@ public class ProviderDaoImpl implements ProviderDao {
 	private SessionFactory sessionFactory;
 
 	@Transactional(readOnly = false)
-	public void addProvider(Provider provider) throws SQLException, Exception {
+	public Provider addProvider(Provider provider) throws SQLException, Exception {
 		sessionFactory.getCurrentSession().save(provider);
+		return provider;
 	}
 
 	@Transactional(readOnly = false)

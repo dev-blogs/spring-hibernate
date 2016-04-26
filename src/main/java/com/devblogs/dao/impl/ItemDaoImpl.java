@@ -15,8 +15,9 @@ public class ItemDaoImpl implements ItemDao {
 	private SessionFactory sessionFactory;
 
 	@Transactional(readOnly = false)
-	public void addItem(Item item) throws SQLException, Exception {
+	public Item addItem(Item item) throws SQLException, Exception {
 		sessionFactory.getCurrentSession().save(item);
+		return item;
 	}
 
 	@Transactional(readOnly = false)
